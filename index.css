@@ -60,6 +60,7 @@ main {
   & section {
     margin-bottom: 10vh;
     & article {
+      margin-left: 2vw;
       margin-top: 5vh;
     }
     
