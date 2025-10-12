@@ -1,79 +1,66 @@
 body {
   display: flex;
+  margin: 0;
   background-color: #1b1f23;
   color: #ffffff;
   font-family: "futura-pt", sans-serif;
   font-style: normal;
+  scroll-behavior: smooth;
+  height: 100vh;
+  overflow: hidden;
+}
+/* Sidebar layout */
+#sidebar {
+  width: 15vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 2rem;
+  background-color: #1b1f23;
 }
 
-/* aside layout */
-aside {
-  margin-top: 30vh;
-  margin-left: 3vw;
-  max-width: 20vh;
-
-  & section {
-    margin-bottom: 7.5vh;
-  }
-
-  & h1 {
-    font-size: 2rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  & sub {
-    margin-top:;
-    font-weight: 400;
-    font-size: 1.5rem;
-  }
-
-  & a {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  & a:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  & #profile-picture {
-    max-width: 7.5rem;
-  }
-
-  & .info-icons {
-    max-width: 1rem;
-  }
-
-  & .social-icon {
-    max-width: 1rem;
-    margin-left: 2rem;
-  }
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* main layout*/
+#sidebar li {
+  margin-bottom: 2rem;
+}
+
+#sidebar a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+#sidebar a:hover {
+  text-decoration: underline;
+}
+
+/* Main layout */
 main {
-  margin-top: 40vh;
-  margin-left: 10vw;
+  margin-left: 15vw; /* leaves space for the sidebar */
+  height: 100vh;
+  width: 85vw;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
 
-  & section {
-    margin-bottom: 10vh;
-    & article {
-      margin-left: 2vw;
-      margin-top: 5vh;
-    }
-    
-    & article:after {
-      content: "";
-      display: block;
-      width: 5rem;
-      height: 2px;
-      background-color: #fff;
-    }
-  }
+main > section {
+  height: 100vh;
+  scroll-snap-align: start;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+  overflow-y: auto; /* just in case section content overflows */
 }
 
 footer {
   text-align: right;
+  padding: 1rem 2rem;
+  font-size: 0.9rem;
 }
