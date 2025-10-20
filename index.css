@@ -1,66 +1,109 @@
+/* base */
+html, body {
+  height: 100%;
+  margin: 0;
+  background: #1b1f23;
+  color: #fff;
+  font-family: "futura-pt", sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* make the page a vertical flex container so footer sits below */
 body {
   display: flex;
-  margin: 0;
-  background-color: #1b1f23;
-  color: #ffffff;
-  font-family: "futura-pt", sans-serif;
-  font-style: normal;
-  scroll-behavior: smooth;
-  height: 100vh;
-  overflow: hidden;
-}
-/* Sidebar layout */
-#sidebar {
-  width: 15vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 2rem;
-  background-color: #1b1f23;
+  flex-direction: column;
+  height: 100vh; /* full viewport */
 }
 
-#sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* content row: aside + main */
+.content {
+  display: flex;
+  flex: 1;        /* take all space left by footer */
+  min-height: 0;  /* CRUCIAL: allow children to shrink and allow internal scrolls */
+  overflow: hidden;/* prevent body-level scrolling */
 }
 
-#sidebar li {
-  margin-bottom: 2rem;
+/* sidebar (participates in layout — NOT fixed) */
+aside {
+  flex: 0 0 15vw;   /* fixed width column */
+  min-width: 200px; /* prevents collapse on very narrow viewports */
+  box-sizing: border-box;
+  padding: 1rem 1.25rem;
+  padding-top: 25vh;
+  text-align: right;
+  z-index: 1;
 }
 
-#sidebar a {
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 1.25rem;
-  font-weight: bold;
+aside ul {
+    list-style: none;
 }
 
-#sidebar a:hover {
-  text-decoration: underline;
+aside li {
+    margin-top: 0.5rem;
 }
 
-/* Main layout */
+aside a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* keep image responsive inside sidebar */
+aside img {
+  max-width: 15vw;
+  height: auto;
+  display: block;
+  margin-left: auto;
+}
+
+/* main — THIS is the only element that scrolls */
 main {
-  margin-left: 15vw; /* leaves space for the sidebar */
-  height: 100vh;
-  width: 85vw;
-  overflow-y: scroll;
+  flex: 1 1 auto;
+  min-height: 0;         /* CRUCIAL for child overflow to work */
+  overflow-y: auto;      /* internal scrolling only */
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-}
-
-main > section {
-  height: 100vh;
-  scroll-snap-align: start;
-  padding: 4rem 2rem;
   box-sizing: border-box;
-  overflow-y: auto; /* just in case section content overflows */
+  padding: 2rem;         /* content padding */
 }
 
+/* each section fills viewport height for snapping */
+main section {
+  height: 100vh;
+  padding-top: 25vh;
+  scroll-snap-align: start;
+  box-sizing: border-box;
+  padding-left: 3rem; /* adjust as desired */
+}
+
+/* footer remains visible at bottom (not fixed) */
 footer {
-  text-align: right;
   padding: 1rem 2rem;
+  text-align: right;
   font-size: 0.9rem;
+}
+
+/* responsive: collapse sidebar above main on small screens */
+@media (max-width: 800px) {
+  aside {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .content {
+    flex-direction: column;
+  }
+
+  main {
+    padding-top: 1rem;
+  }
+
+  footer {
+    text-align: center;
+  }
 }
